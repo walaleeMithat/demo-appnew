@@ -20,6 +20,7 @@ export default function ResultModal( props: ResultModalProps) {
 
     const [editModel, setEditModel] = useState<AuthenModel>(props.data)
     const [isEditing, setIsEditing] = useState(false)
+    const [isVisible, setIsvisible] = useState(true)
 
     useEffect(() => {
         const init = async () => {
@@ -89,11 +90,16 @@ export default function ResultModal( props: ResultModalProps) {
         setIsEditing(false)
     }
 
+
+    const onClosed = () => {
+        props.onClose()
+        setIsEditing(false)
+    }
     return (
-        <div className="modal fade" tabIndex={-1} ref={modalRef}>
+        <div className="modal fade" tabIndex={-1} ref={modalRef} >
             <div className="modal-dialog">
                 <div className="modal-content">
-
+                    display: {isVisible ? 'show' : 'none' }
                     <div className="modal-header">
                         <h5 className="modal-title">Result</h5>
                         <button className="btn-close" data-bs-dismiss="modal"></button>
@@ -133,7 +139,7 @@ export default function ResultModal( props: ResultModalProps) {
                                 <button className="btn btn-warning" onClick={() => setIsEditing(true)}>
                                     Edit
                                 </button>
-                                <button className="btn btn-secondary" data-bs-dismiss="modal">
+                                <button className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => setIsvisible(false)}>
                                     Close
                                 </button>
                             </>
