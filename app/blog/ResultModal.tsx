@@ -13,12 +13,12 @@ interface ResultModalProps {
     onClose: () => void
 }
 
-export default function ResultModal({ data, onSave, onClose }: ResultModalProps) {
+export default function ResultModal( props: ResultModalProps) {
 
     const modalRef = useRef<HTMLDivElement | null>(null)
     const modalInstance = useRef<any>(null)
 
-    const [editModel, setEditModel] = useState<AuthenModel>(data)
+    const [editModel, setEditModel] = useState<AuthenModel>(props.data)
     const [isEditing, setIsEditing] = useState(false)
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function ResultModal({ data, onSave, onClose }: ResultModalProps)
                 const backdrops = document.querySelectorAll('.modal-backdrop')
                 backdrops.forEach(el => el.remove())
 
-                onClose()
+                props.onClose()
             }
 
             modalRef.current.addEventListener('hidden.bs.modal', handleHidden)
@@ -85,7 +85,7 @@ export default function ResultModal({ data, onSave, onClose }: ResultModalProps)
     }
 
     const handleSave = () => {
-        onSave(editModel)
+        props.onSave(editModel)
         setIsEditing(false)
     }
 
@@ -117,8 +117,8 @@ export default function ResultModal({ data, onSave, onClose }: ResultModalProps)
                             </>
                         ) : (
                             <>
-                                <p>Email: {data.email}</p>
-                                <p>Password: {data.password}</p>
+                                <p>Email: {props.data.email}</p>
+                                <p>Password: {props.data.password}</p>
                             </>
                         )}
                     </div>
